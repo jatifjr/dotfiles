@@ -1,9 +1,6 @@
 # --- Profiling ---
 [[ -n "$ZSH_PROFILING_ENABLE" ]] && zmodload zsh/zprof
 
-# --- MacGNU ---
-[[ -f ~/.macgnu ]] && . ~/.macgnu
-
 # --- Plugins ---
 __zsh_user_data_dir="${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
 plugins=(
@@ -14,7 +11,7 @@ plugins=(
 )
 zephyr_plugins=(
     environment
-    homebrew
+    # homebrew
     color
     compstyle
     completion
@@ -70,12 +67,25 @@ fi
 # volta (node.js)
 export VOLTA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/volta"
 export VOLTA_FEATURE_PNPM=1
-export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/npm/.npmrc"
+
+# bun
+export BUN_INSTALL="${XDG_DATA_HOME:-$HOME/.local/share}/bun"
+
+# go
+export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
+export GOCACHE="${XDG_CACHE_HOME:-$HOME/.cache}/go-build"
 
 # --- Paths ---
 path=(
     $VOLTA_HOME/bin
+    $BUN_INSTALL/bin
     $path
+)
+
+# --- FPaths ---
+fpath=(
+    $__zsh_user_data_dir/completions
+    $fpath
 )
 
 # --- End of profiling ---
@@ -85,3 +95,6 @@ zbench() {
     head -14 "$t"; rm -f "$t"
 }
 [[ -n "$ZSH_PROFILING_ENABLE" ]] && zprof
+
+# bun completions
+[ -s "/Users/jatifjr/.local/share/bun/_bun" ] && source "/Users/jatifjr/.local/share/bun/_bun"
