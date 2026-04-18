@@ -24,3 +24,4 @@ set viminfo+=n~/.local/state/viminfo
 " Colorscheme
 let g:SnazzyTransparent = 1
 colorscheme snazzy
+

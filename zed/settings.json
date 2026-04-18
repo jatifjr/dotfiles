@@ -6,36 +6,53 @@
   // To see all of Zed's default settings without changing your
   // custom settings, run `zed: open default settings` from the
   // command palette (cmd-shift-p / ctrl-shift-p)
+  "language_models": {
+    "openai_compatible": {
+      
+    }
+  },
+  "agent_servers": {
+    },
   "lsp": {
     "vtsls": {
       "settings": {
         "typescript": {
           "updateImportsOnFileMove": {
-            "enabled": "always"
-          }
+            "enabled": "always",
+          },
         },
         "javascript": {
           "updateImportsOnFileMove": {
-            "enabled": "always"
-          }
-        }
+            "enabled": "always",
+          },
+        },
       },
-      "enable_lsp_tasks": true
-    }
+      "enable_lsp_tasks": true,
+    },
   },
   "agent": {
+    "default_profile": "ask",
+    "default_model": {
+      "provider": "google",
+      "model": "gemini-2.5-flash-lite",
+      "enable_thinking": true,
+    },
     "favorite_models": [],
-    "always_allow_tool_actions": true,
-    "model_parameters": []
+    "model_parameters": [],
+  },
+  "icon_theme": {
+    "mode": "system",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
   },
   "theme": {
     "mode": "system",
-    "light": "Min Light (Solid)",
-    "dark": "Min Dark (Solid)",
+    "light": "Vercel Light",
+    "dark": "Vercel Dark",
   },
   "ui_font_family": ".SystemUIFont",
   "ui_font_size": 14.0,
-  "buffer_font_family": "Menlo",
+  "buffer_font_family": "SF Mono",
   "buffer_font_size": 13.0,
   "session": {
     "trust_all_worktrees": true,
