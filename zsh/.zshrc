@@ -53,7 +53,9 @@ export GOPATH="$XDG_DATA_HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
 # Rust
-# [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export PATH="$CARGO_HOME/bin:$PATH"
 
 # Custom Completions
 export COMPDIR="$XDG_DATA_HOME/zsh/completions"
