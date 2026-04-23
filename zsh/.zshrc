@@ -22,12 +22,10 @@ PS1='%F{8}%n@%m%f %F{2}%1~%f %F{8}${vcs_info_msg_0_}%f%F{2}%#%f '
 # --- ALIASES ---
 #
 
-alias ls='ls -G'
-alias la='ls -lhA'
 alias cp='cp -i'
 alias ln='ln -i'
 alias mv='mv -i'
-alias rm='rm -i'
+alias rm='rm -I'
 
 alias fpath='printf "%s\n" "${fpath[@]}"'
 alias path='printf "%s\n" "${path[@]}"'
