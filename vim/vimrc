@@ -1,27 +1,38 @@
-" Auto Download
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.config/vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" packages
+let s:plugins = [
+      \ 'https://github.com/tpope/vim-commentary.git',
+      \ 'https://github.com/tpope/vim-fugitive.git',
+      \ 'https://github.com/tpope/vim-sensible.git',
+      \ 'https://github.com/tpope/vim-sleuth.git',
+      \ 'https://github.com/tpope/vim-surround.git',
+      \ ]
+
+let s:root = split(&packpath, ',')[0] . '/pack/p/start'
+call mkdir(s:root, 'p')
+
+if executable('git')
+  for s:url in s:plugins
+    let s:name = fnamemodify(s:url, ':t:r')
+    let s:dir  = s:root . '/' . s:name
+    if !isdirectory(s:dir)
+      call system('git clone --depth 1 ' . shellescape(s:url) . ' ' . shellescape(s:dir))
+    endif
+  endfor
 endif
 
-" Plugins
-call plug#begin()
+packloadall
 
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'connorholyday/vim-snazzy'
+" options
+filetype plugin indent on
+syntax on
 
-call plug#end()
-
-" Files
 set nobackup
 set noswapfile
 set noundofile
 set viminfo+=n~/.local/state/viminfo
 
-" Colorscheme
-let g:SnazzyTransparent = 1
-colorscheme snazzy
+set clipboard=unnamed
 
+set number
+
+colorscheme ansi

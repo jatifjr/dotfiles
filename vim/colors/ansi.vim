@@ -1,113 +1,81 @@
-" ===============================================================
-" ANSI
-" 16-color terminal colorscheme with transparent background
-" ===============================================================
+" Name: ANSI
 
-" Setup
 set background=dark
-if version > 580
-	hi clear
-	if exists("syntax_on")
-		syntax reset
-	endif
-endif
+highlight clear
 
-set t_Co=16
-set notermguicolors
+if exists("syntax_on")
+  syntax reset
+endif
 
 let g:colors_name = "ansi"
 
-" ANSI color mappings (cterm values 0-15):
-" 0  = Black
-" 1  = Red
-" 2  = Green
-" 3  = Yellow
-" 4  = Blue
-" 5  = Magenta
-" 6  = Cyan
-" 7  = White
-" 8  = BrightBlack
-" 9  = BrightRed
-" 10 = BrightGreen
-" 11 = BrightYellow
-" 12 = BrightBlue
-" 13 = BrightMagenta
-" 14 = BrightCyan
-" 15 = BrightWhite
 
-highlight Normal              ctermfg=7     ctermbg=NONE  cterm=NONE
-highlight IncSearch           ctermfg=0     ctermbg=11    cterm=NONE
-highlight WildMenu            ctermfg=NONE  ctermbg=8     cterm=NONE
-highlight SignColumn          ctermfg=8     ctermbg=NONE  cterm=NONE
-highlight SpecialComment      ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight Typedef             ctermfg=4     ctermbg=NONE  cterm=bold
-highlight Title               ctermfg=11    ctermbg=NONE  cterm=bold
-highlight Folded              ctermfg=8     ctermbg=NONE  cterm=NONE
-highlight PreCondit           ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight Include             ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight Float               ctermfg=3     ctermbg=NONE  cterm=NONE
-highlight StatusLineNC        ctermfg=7     ctermbg=8     cterm=bold
-highlight NonText             ctermfg=8     ctermbg=NONE  cterm=NONE
-highlight DiffText            ctermfg=1     ctermbg=NONE  cterm=NONE
-highlight ErrorMsg            ctermfg=1     ctermbg=NONE  cterm=NONE
-highlight Debug               ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight PMenuSbar           ctermfg=NONE  ctermbg=8     cterm=NONE
-highlight Identifier          ctermfg=6     ctermbg=NONE  cterm=NONE
-highlight SpecialChar         ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight Conditional         ctermfg=11    ctermbg=NONE  cterm=bold
-highlight StorageClass        ctermfg=4     ctermbg=NONE  cterm=bold
-highlight Todo                ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight Special             ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight LineNr              ctermfg=8     ctermbg=NONE  cterm=NONE
-highlight StatusLine          ctermfg=7     ctermbg=8     cterm=bold
-highlight Label               ctermfg=11    ctermbg=NONE  cterm=bold
-highlight PMenuSel            ctermfg=2     ctermbg=8     cterm=NONE
-highlight Search              ctermfg=0     ctermbg=11    cterm=NONE
-highlight Delimiter           ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight Statement           ctermfg=5     ctermbg=NONE  cterm=bold
-highlight SpellRare           ctermfg=7     ctermbg=NONE  cterm=underline
-highlight Comment             ctermfg=8     ctermbg=NONE  cterm=NONE
-highlight Character           ctermfg=7     ctermbg=NONE  cterm=NONE
-highlight TabLineSel          ctermfg=7     ctermbg=NONE  cterm=bold
-highlight Number              ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight Boolean             ctermfg=7     ctermbg=NONE  cterm=NONE
-highlight Operator            ctermfg=5     ctermbg=NONE  cterm=bold
-highlight CursorLine          ctermfg=NONE  ctermbg=NONE  cterm=NONE
-highlight ColorColumn         ctermfg=NONE  ctermbg=NONE  cterm=NONE
-highlight CursorLineNR        ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight TabLineFill         ctermfg=8     ctermbg=8     cterm=bold
-highlight WarningMsg          ctermfg=1     ctermbg=NONE  cterm=NONE
-highlight VisualNOS           ctermfg=0     ctermbg=7     cterm=underline
-highlight DiffDelete          ctermfg=5     ctermbg=NONE  cterm=NONE
-highlight ModeMsg             ctermfg=15    ctermbg=NONE  cterm=bold
-highlight CursorColumn        ctermfg=7     ctermbg=NONE  cterm=NONE
-highlight Define              ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight Function            ctermfg=4     ctermbg=NONE  cterm=bold
-highlight FoldColumn          ctermfg=8     ctermbg=NONE  cterm=NONE
-highlight PreProc             ctermfg=1     ctermbg=NONE  cterm=NONE
-highlight Visual              ctermfg=0     ctermbg=7     cterm=NONE
-highlight MoreMsg             ctermfg=11    ctermbg=NONE  cterm=bold
-highlight SpellCap            ctermfg=7     ctermbg=NONE  cterm=underline
-highlight VertSplit           ctermfg=8     ctermbg=NONE  cterm=bold
-highlight Exception           ctermfg=1     ctermbg=NONE  cterm=bold
-highlight Keyword             ctermfg=5     ctermbg=NONE  cterm=bold
-highlight Type                ctermfg=6     ctermbg=NONE  cterm=bold
-highlight DiffChange          ctermfg=7     ctermbg=NONE  cterm=NONE
-highlight Cursor              ctermfg=0     ctermbg=15    cterm=NONE
-highlight SpellLocal          ctermfg=7     ctermbg=NONE  cterm=underline
-highlight Error               ctermfg=1     ctermbg=NONE  cterm=NONE
-highlight PMenu               ctermfg=7     ctermbg=8     cterm=NONE
-highlight SpecialKey          ctermfg=8     ctermbg=NONE  cterm=NONE
-highlight Constant            ctermfg=2     ctermbg=NONE  cterm=NONE
-highlight Tag                 ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight String              ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight PMenuThumb          ctermfg=NONE  ctermbg=7     cterm=NONE
-highlight MatchParen          ctermfg=11    ctermbg=NONE  cterm=bold
-highlight Repeat              ctermfg=2     ctermbg=NONE  cterm=bold
-highlight SpellBad            ctermfg=7     ctermbg=NONE  cterm=underline
-highlight Directory           ctermfg=4     ctermbg=NONE  cterm=bold
-highlight Structure           ctermfg=4     ctermbg=NONE  cterm=bold
-highlight Macro               ctermfg=11    ctermbg=NONE  cterm=NONE
-highlight Underlined          ctermfg=7     ctermbg=NONE  cterm=underline
-highlight DiffAdd             ctermfg=2     ctermbg=NONE  cterm=NONE
-highlight TabLine             ctermfg=7     ctermbg=8     cterm=bold
+" --- Editor UI ---
+
+" Normal text keeps the terminal default
+hi Normal       ctermbg=NONE ctermfg=NONE cterm=NONE
+
+" Line numbers and gutter
+hi LineNr       ctermbg=NONE ctermfg=8    cterm=NONE
+hi CursorLineNr ctermbg=NONE ctermfg=8    cterm=bold
+hi SignColumn   ctermbg=NONE ctermfg=8    cterm=NONE
+
+" Visual selection and searching
+hi Visual       ctermbg=8    ctermfg=15   cterm=bold
+hi Search       ctermbg=3    ctermfg=0    cterm=bold
+hi IncSearch    ctermbg=1    ctermfg=15   cterm=bold,underline
+
+" Status line and splits
+hi StatusLine   ctermbg=7    ctermfg=0    cterm=bold
+hi StatusLineNC ctermbg=8    ctermfg=0    cterm=NONE
+hi VertSplit    ctermbg=NONE ctermfg=8    cterm=NONE
+
+" Popups and autocomplete
+hi Pmenu        ctermbg=8    ctermfg=15   cterm=NONE
+hi PmenuSel     ctermbg=4    ctermfg=15   cterm=bold
+hi MatchParen   ctermbg=6    ctermfg=0    cterm=bold
+
+" Warnings and errors
+hi ErrorMsg     ctermbg=1    ctermfg=15   cterm=bold
+hi WarningMsg   ctermbg=NONE ctermfg=3    cterm=bold
+
+
+" --- Syntax Highlighting ---
+
+" Comments (Dark Gray / Bright Black) - explicitly italic
+hi Comment      ctermbg=NONE ctermfg=8    cterm=italic
+
+" Constants, Strings, Numbers, Booleans
+hi Constant     ctermbg=NONE ctermfg=3    cterm=NONE
+hi String       ctermbg=NONE ctermfg=2    cterm=italic
+hi Number       ctermbg=NONE ctermfg=3    cterm=bold
+hi Boolean      ctermbg=NONE ctermfg=5    cterm=bold,italic
+
+" Identifiers and Functions
+hi Identifier   ctermbg=NONE ctermfg=NONE cterm=NONE
+hi Function     ctermbg=NONE ctermfg=4    cterm=bold
+
+" Statements, Keywords, Conditionals (Magenta)
+hi Statement    ctermbg=NONE ctermfg=5    cterm=bold
+hi Conditional  ctermbg=NONE ctermfg=5    cterm=bold,italic
+hi Repeat       ctermbg=NONE ctermfg=5    cterm=bold,italic
+hi Operator     ctermbg=NONE ctermfg=6    cterm=NONE
+hi Keyword      ctermbg=NONE ctermfg=5    cterm=bold
+
+" Preprocessor directives (Cyan)
+hi PreProc      ctermbg=NONE ctermfg=6    cterm=bold
+hi Include      ctermbg=NONE ctermfg=4    cterm=italic
+hi Macro        ctermbg=NONE ctermfg=6    cterm=NONE
+
+" Types and Classes (Cyan/Blue)
+hi Type         ctermbg=NONE ctermfg=6    cterm=italic
+hi StorageClass ctermbg=NONE ctermfg=5    cterm=bold
+hi Structure    ctermbg=NONE ctermfg=6    cterm=bold
+
+" Special characters and symbols (Red)
+hi Special      ctermbg=NONE ctermfg=1    cterm=bold
+hi Delimiter    ctermbg=NONE ctermfg=8    cterm=NONE
+
+" Errors and Todos
+hi Error        ctermbg=1    ctermfg=15   cterm=bold,underline
+hi Todo         ctermbg=3    ctermfg=0    cterm=bold,italic

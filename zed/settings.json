@@ -6,32 +6,7 @@
   // To see all of Zed's default settings without changing your
   // custom settings, run `zed: open default settings` from the
   // command palette (cmd-shift-p / ctrl-shift-p)
-  "language_models": {
-    "openai_compatible": {
-      
-    }
-  },
-  "agent_servers": {
-    },
-  "lsp": {
-    "vtsls": {
-      "settings": {
-        "typescript": {
-          "updateImportsOnFileMove": {
-            "enabled": "always",
-          },
-        },
-        "javascript": {
-          "updateImportsOnFileMove": {
-            "enabled": "always",
-          },
-        },
-      },
-      "enable_lsp_tasks": true,
-    },
-  },
   "agent": {
-    "default_profile": "ask",
     "default_model": {
       "provider": "google",
       "model": "gemini-2.5-flash-lite",
