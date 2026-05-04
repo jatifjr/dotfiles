@@ -1,28 +1,36 @@
-" packages
-let s:plugins = [
-      \ 'https://github.com/tpope/vim-commentary.git',
-      \ 'https://github.com/tpope/vim-fugitive.git',
-      \ 'https://github.com/tpope/vim-sensible.git',
-      \ 'https://github.com/tpope/vim-sleuth.git',
-      \ 'https://github.com/tpope/vim-surround.git',
-      \ ]
-
-let s:root = split(&packpath, ',')[0] . '/pack/p/start'
-call mkdir(s:root, 'p')
+" Packs
+let s:packs=[
+\ 'https://github.com/tpope/vim-commentary.git',
+\ 'https://github.com/tpope/vim-sensible.git',
+\ 'https://github.com/tpope/vim-sleuth.git',
+\ 'https://github.com/tpope/vim-surround.git',
+\ ]
 
 if executable('git')
-  for s:url in s:plugins
-    let s:name = fnamemodify(s:url, ':t:r')
-    let s:dir  = s:root . '/' . s:name
-    if !isdirectory(s:dir)
-      call system('git clone --depth 1 ' . shellescape(s:url) . ' ' . shellescape(s:dir))
-    endif
+  let s:b=split(&packpath,',')[0].'/pack'|let k={}
+  for u in s:packs
+    let d=printf('%s/%s/start/%s',s:b,split(u,'/')[-2],fnamemodify(u,':t:r'))|let k[d]=1
+    if !isdirectory(d)|call system('git clone --depth 1 '.shellescape(u).' '.shellescape(d))|endif
   endfor
+  for d in globpath(s:b,'*/start/*',0,1)|if !has_key(k,d)|call delete(d,'rf')|endif|endfor
+  for u in globpath(s:b,'*',0,1)|let s=u.'/start'|if !isdirectory(s)||empty(globpath(s,'*',0,1))|call delete(u,'rf')|endif|endfor
+  command! PackUpdate call s:pack_update()
+  function! s:pack_update()
+    let s:b=split(&packpath,',')[0].'/pack'|let u=0
+    for d in globpath(s:b,'*/start/*',0,1)
+      let b=system('git -C '.shellescape(d).' rev-parse HEAD')
+      call system('git -C '.shellescape(d).' pull --ff-only')
+      let a=system('git -C '.shellescape(d).' rev-parse HEAD')
+      if b!=a|let u=1|echom fnamemodify(d,':t').' updated'|endif
+    endfor
+    if !u|echo 'Packs are up to date'|endif
+  endfunction
 endif
 
 packloadall
 
-" options
+
+" Options
 filetype plugin indent on
 syntax on
 
@@ -35,4 +43,7 @@ set clipboard=unnamed
 
 set number
 
-colorscheme ansi
+
+" Theme
+set t_Co=16
+colorscheme quiet
