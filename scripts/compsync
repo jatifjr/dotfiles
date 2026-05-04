@@ -28,10 +28,6 @@ exists_in_source() {
   [[ -f "$SOURCE_DIR/src/_$1" ]]
 }
 
-is_installed() {
-  [[ -L "$TARGET_DIR/_$1" ]]
-}
-
 ensure_state_file() {
   touch "$STATE_FILE"
 }
@@ -79,50 +75,8 @@ cmd_list() {
 
   while read -r item; do
     [[ -z "$item" ]] && continue
-
-    if is_installed "$item"; then
-      print -r -- "✔ $item"
-    else
-      print -r -- "✖ $item"
-    fi
-  done < "$STATE_FILE"
-}
-
-cmd_find() {
-  if [[ ! -d "$SOURCE_DIR/src" ]]; then
-    print -r -- "compsync: local source missing (no $SOURCE_DIR/src)" >&2
-    print -r -- "  run: compsync update" >&2
-    print -r -- "  or:  compsync doctor" >&2
-    exit 1
-  fi
-
-  local -a files=("$SOURCE_DIR"/src/_*(N))
-  if (( ! ${#files} )); then
-    print -r -- "compsync: no completion files under $SOURCE_DIR/src" >&2
-    print -r -- "  run: compsync update" >&2
-    print -r -- "  or:  compsync doctor" >&2
-    exit 1
-  fi
-
-  local -a names=()
-  local f
-  for f in "${files[@]}"; do
-    names+=("${${f:t}#_}")
-  done
-  names=("${(@ou)names}")
-
-  local arg="${1:-}"
-  if [[ "$arg" == "--all" ]]; then
-    print -rl -- "${names[@]}"
-    return
-  fi
-
-  if [[ -z "$arg" ]]; then
-    print -r -- "usage: compsync find <name>|--all" >&2
-    return 1
-  fi
-
-  printf '%s\n' "${names[@]}" | grep -Fi "$arg" || true
+    print -r -- "$item"
+  done <"$STATE_FILE"
 }
 
 cmd_add() {
@@ -169,42 +123,6 @@ cmd_update() {
   update_source
 }
 
-cmd_link() {
-  ensure_state_file
-  local item
-  while read -r item; do
-    [[ -z "$item" ]] && continue
-    if exists_in_source "$item"; then
-      link_completion "$item"
-    else
-      print -r -- "skip (not in source): $item" >&2
-    fi
-  done <"$STATE_FILE"
-}
-
-cmd_unlink() {
-  ensure_state_file
-  local item
-  while read -r item; do
-    [[ -z "$item" ]] && continue
-    unlink_completion "$item"
-  done <"$STATE_FILE"
-}
-
-cmd_sync() {
-  update_source
-  ensure_state_file
-  local item
-  while read -r item; do
-    [[ -z "$item" ]] && continue
-    if exists_in_source "$item"; then
-      link_completion "$item"
-    else
-      print -r -- "skip (not in source): $item" >&2
-    fi
-  done <"$STATE_FILE"
-}
-
 cmd_doctor() {
   print -r -- "DATA_DIR=$DATA_DIR"
   print -r -- "STATE_DIR=$STATE_DIR"
@@ -223,35 +141,27 @@ cmd_doctor() {
   if [[ -w "$TARGET_DIR" ]]; then
     print -r -- "target: directory writable"
   else
-    print -r -- "target: not writable by this user (add/link/sync use sudo ln)"
+    print -r -- "target: not writable by this user (add/remove use sudo ln)"
   fi
 }
 
 cmd_help() {
   cat <<EOF
-compsync — install completions from zsh-users/zsh-completions into:
-  $TARGET_DIR
+compsync — zsh-users/zsh-completions → $TARGET_DIR
 
-Usage: compsync <command> [arguments]
+Usage: compsync <command> [args]
 
 Commands
-  list               Lines in your state file; ✔ = symlink present, ✖ = not.
-  find <text>        Names in the local clone whose names contain <text> (anywhere,
-                     case-insensitive). Does not change disk.
-  find --all         Every completion basename from the clone (sorted).
-  add <name> …       Append names to state and symlink src/_<name> here (uses sudo).
-                     Names must match repo files exactly — use find first.
-  remove <name> …    Remove symlinks and drop names from state (uses sudo).
-  update             Git clone (first time) or pull the completion source tree.
-  sync               Same as update, then link every name in state.
-  link               Link every name in state (no git).
-  unlink             Remove symlinks for every name in state (no git).
-  doctor             Paths, whether the clone and src/ exist, target writable?
-  help               Show this message.
+  list       Print tracked basenames from the state file (sorted, unique).
+  add        Symlink clone src/_<name> here (sudo). Basename must exist in clone (run update first).
+  remove     Remove symlink and drop basename from state (sudo).
+  update     Clone or pull the completion repo into the source dir.
+  doctor     Print paths and clone/target hints.
+  help       Show help.
 
 Locations
-  source   $SOURCE_DIR
-  state    $STATE_FILE   (one basename per line, sorted)
+  source  $SOURCE_DIR
+  state   $STATE_FILE
 EOF
 }
 
@@ -261,13 +171,9 @@ cmd="${1:-help}"
 
 case "$cmd" in
   list) cmd_list ;;
-  find) cmd_find "$@" ;;
   add) cmd_add "$@" ;;
   remove) cmd_remove "$@" ;;
   update) cmd_update ;;
-  sync) cmd_sync ;;
-  link) cmd_link ;;
-  unlink) cmd_unlink ;;
   doctor) cmd_doctor ;;
   help|*) cmd_help ;;
 esac

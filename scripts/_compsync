@@ -1,0 +1,80 @@
+#compdef compsync
+
+local DATA_DIR STATE_DIR SOURCE_DIR STATE_FILE
+DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/compsync"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/compsync"
+SOURCE_DIR="$DATA_DIR/source"
+STATE_FILE="$STATE_DIR/list"
+
+integer ret=1
+
+if (( CURRENT == 2 )); then
+  local -a commands
+  commands=(
+    'list:print tracked basenames'
+    'add:symlink from clone (sudo); basename in src/'
+    'remove:drop symlink and state entry (sudo)'
+    'update:clone or pull completion repo'
+    'doctor:paths and clone/target hints'
+    'help:show help'
+  )
+  _describe -t commands 'compsync command' commands && ret=0
+elif [[ $words[2] == add ]]; then
+  if (( CURRENT >= 3 )) && [[ -d $SOURCE_DIR/src ]]; then
+    local -a files names keep used n
+    files=($SOURCE_DIR/src/_*(N))
+    if (( ${#files} )); then
+      names=(${${files:t}#_})
+      names=(${(iou)names})
+      used=(${words[3,CURRENT-1]})
+      keep=()
+      for n in $names; do
+        (( ${used[(I)$n]} )) && continue
+        keep+=($n)
+      done
+      if (( ${#keep} )); then
+        compadd "$@" -a keep && ret=0
+      else
+        _message 'no more completion names to add' && ret=0
+      fi
+    else
+      _message 'no _* files under clone src/' && ret=0
+    fi
+  elif (( CURRENT >= 3 )); then
+    _message 'run `compsync update` to fetch clone' && ret=0
+  fi
+elif [[ $words[2] == remove ]]; then
+  if (( CURRENT >= 3 )) && [[ -f $STATE_FILE ]]; then
+    local -a lines keep used n
+    lines=(${(f)"$(<$STATE_FILE)"})
+    lines=(${lines:#})
+    if (( ${#lines} )); then
+      used=(${words[3,CURRENT-1]})
+      keep=()
+      for n in $lines; do
+        (( ${used[(I)$n]} )) && continue
+        keep+=($n)
+      done
+      if (( ${#keep} )); then
+        compadd "$@" -a keep && ret=0
+      else
+        _message 'no more state names to remove' && ret=0
+      fi
+    else
+      _message 'state file is empty' && ret=0
+    fi
+  elif (( CURRENT >= 3 )); then
+    _message 'no state file yet' && ret=0
+  fi
+else
+  case $words[2] in
+    list|update|doctor|help)
+      _message 'no arguments' && ret=0 ;;
+    *)
+      if (( CURRENT >= 3 )); then
+        _message "unknown compsync command: $words[2]" && ret=0
+      fi ;;
+  esac
+fi
+
+return ret
