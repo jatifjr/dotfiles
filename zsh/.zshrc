@@ -1,61 +1,48 @@
-# --- PROFILING (START) ---
+# Options
+setopt extended_glob
+setopt interactive_comments
+setopt no_beep
 
-[[ -n $ZSH_PROFILING_ENABLE ]] && zmodload zsh/zprof
+
+# History
+HISTSIZE=10000
+SAVEHIST=10000
+
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt hist_verify
+setopt share_history
 
 
-# --- PROMPT ---
+# Completions
+autoload -Uz compinit && compinit
 
-autoload -Uz vcs_info
+zstyle ':completion:*' menu select
+zstyle ':completion:*' use-cache on
 
-zstyle ':vcs_info:git:*' formats '%b '
 
-precmd() {
-  vcs_info
-}
-
+# Prompt
 setopt prompt_subst
 
-PS1='%F{8}%n@%m%f %F{2}%1~%f %F{8}${vcs_info_msg_0_}%f%F{2}%#%f '
+autoload -Uz vcs_info && precmd() {
+    vcs_info
+    if [[ -n ${vcs_info_msg_0_} ]]; then
+        PROMPT='%F{8}%n@%m%f %F{2}%1~%f %F{8}${vcs_info_msg_0_}%f %F{2}%#%f '
+    else
+        PROMPT='%F{8}%n@%m%f %F{2}%1~%f %F{2}%#%f '
+    fi
+}
+
+zstyle ':vcs_info:git:*' formats '%b'
 
 
-# --- ALIASES ---
+# Keybindings
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
 
-alias diff='diff --color=auto'
-alias grep='grep --color=auto'
+
+# Aliases
 alias ls='ls --color=auto'
-
 alias ll='ls -hl'
 alias la='ls -hlA'
-
-alias path='printf "%s\n" "${path[@]}"'
-alias fpath='printf "%s\n" "${fpath[@]}"'
-
-
-# --- PLUGINS ---
-
-ZPLUX_HOME="$XDG_DATA_HOME/zplux"
-
-[[ -f "$ZPLUX_HOME/init.zsh" ]] || {
-  [[ -d $ZPLUX_HOME ]] || mkdir -p -- $ZPLUX_HOME
-  command -v git >/dev/null 2>&1 && git clone --depth 1 "https://github.com/jatifjr/zplux.git" $ZPLUX_HOME >/dev/null 2>&1
-}
-
-source "$ZPLUX_HOME/init.zsh"
-
-
-# --- UTILS ---
-
-zbench() {
-  local t
-  t=$(mktemp -t zprof.XXXXXX) || return
-
-  { time ZSH_PROFILING_ENABLE=1 zsh -i -c exit >| "$t" } 2>&1
-  head -14 "$t"
-
-  rm -f -- "$t"
-}
-
-
-# --- PROFILING (END) ---
-
-[[ -n $ZSH_PROFILING_ENABLE ]] && zprof
