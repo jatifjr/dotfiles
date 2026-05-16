@@ -1,11 +1,8 @@
-# macOS system files
 .DS_Store
 .AppleDouble
 .LSOverride
-Icon?
+Icon[[:cntrl:]][[:cntrl:]]
 ._*
-
-# macOS versioning / metadata
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -13,19 +10,9 @@ Icon?
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-
-# macOS application support
 .AppleDB
 .AppleDesktop
 .apdisk
-
-# macOS network / shared folders
 Network Trash Folder
 Temporary Items
-
-# Cloud files
 *.icloud
-
-# Environment files
-.env*
-!.env.example
