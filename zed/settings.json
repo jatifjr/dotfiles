@@ -6,11 +6,26 @@
   // To see all of Zed's default settings without changing your
   // custom settings, run `zed: open default settings` from the
   // command palette (cmd-shift-p / ctrl-shift-p)
+  "cli_default_open_behavior": "new_window",
+  "context_servers": {
+    "mcp-server-context7": {
+      "enabled": true,
+      "remote": false,
+      "settings": {
+        "context7_api_key": "ctx7sk-30f4058d-1df0-457b-878e-3d00fe2299d9",
+      },
+    },
+  },
+  "agent_servers": {
+    "gemini": {
+      "type": "registry",
+    },
+  },
   "agent": {
     "default_model": {
       "provider": "google",
-      "model": "gemini-2.5-flash-lite",
-      "enable_thinking": true,
+      "model": "gemini-3-flash-preview",
+      "enable_thinking": false,
     },
     "favorite_models": [],
     "model_parameters": [],
