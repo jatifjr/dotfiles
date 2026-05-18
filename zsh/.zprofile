@@ -1,18 +1,30 @@
 # MacPorts
-[[ -d /opt/local/bin || -d /opt/local/sbin ]] && PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+[[ -d /opt/local ]] && {
+    path=("/opt/local/bin" "/opt/local/sbin" $path)
+    manpath=("/opt/local/share/man" $manpath)
+}
 
-# Python uv
-export UV_NO_MODIFY_PATH=1
-export UV_INSTALL_DIR="$XDG_DATA_HOME/uv/bin"
-export UV_PYTHON_BIN_DIR="$UV_INSTALL_DIR"
-export UV_TOOL_BIN_DIR="$UV_INSTALL_DIR"
-[[ -d $UV_INSTALL_DIR ]] && PATH="$UV_INSTALL_DIR:$PATH"
+
+# Node.js (n)
+(( $+commands[n] )) && {
+    export N_PREFIX="$XDG_DATA_HOME/n"
+    path=("$N_PREFIX/bin" $path)
+}
 
 # Go
 (( $+commands[go] )) && {
     export GOPATH="$XDG_DATA_HOME/go"
-    PATH="$GOPATH/bin:$PATH"
+    path=("$GOPATH/bin" $path)
 }
+
+# Python (uv)
+(( $+commands[uv] )) && {
+    UV_DATA="$XDG_DATA_HOME/uv"
+    export UV_PYTHON_BIN_DIR="$UV_DATA/bin"
+    export UV_TOOL_BIN_DIR="$UV_DATA/bin"
+    path=("$UV_DATA/bin" $path)
+}
+
 
 # Apple Terminal
 [[ $TERM_PROGRAM == Apple_Terminal ]] && SHELL_SESSIONS_DISABLE=1
