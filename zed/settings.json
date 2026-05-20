@@ -6,7 +6,6 @@
   // To see all of Zed's default settings without changing your
   // custom settings, run `zed: open default settings` from the
   // command palette (cmd-shift-p / ctrl-shift-p)
-  "cli_default_open_behavior": "new_window",
   "context_servers": {
     "mcp-server-context7": {
       "enabled": true,
@@ -22,6 +21,7 @@
     },
   },
   "agent": {
+    "dock": "right",
     "default_model": {
       "provider": "google",
       "model": "gemini-3-flash-preview",
@@ -29,6 +29,18 @@
     },
     "favorite_models": [],
     "model_parameters": [],
+  },
+  "project_panel": {
+    "dock": "left",
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "git_panel": {
+    "dock": "left",
   },
   "icon_theme": {
     "mode": "system",
@@ -47,6 +59,7 @@
   "session": {
     "trust_all_worktrees": true,
   },
+  "cli_default_open_behavior": "new_window",
   "base_keymap": "VSCode",
   "vim_mode": true,
 }
