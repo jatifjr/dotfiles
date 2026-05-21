@@ -28,8 +28,9 @@ setopt prompt_subst
 autoload -Uz vcs_info && precmd() { vcs_info }
 
 zstyle ':vcs_info:git:*' formats '%b '
+zstyle ':vcs_info:git:*' actionformats '%b (%a) '
 
-PROMPT='%F{8}%n@%m%f %F{2}%1~%f %F{8}${vcs_info_msg_0_}%f%F{2}%#%f '
+PROMPT='%F{8}%n@%m%f %F{2}%2~%f %F{8}${vcs_info_msg_0_}%f%F{2}%#%f '
 
 
 # Keybindings
