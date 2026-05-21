@@ -1,6 +1,6 @@
 # Nice To Have
 
-Make sure `.zshenv`, `.zprofile`, `.zshrc` are set up correctly.
+Before doing any setup, make sure `.zshenv`, `.zprofile`, `.zshrc` are set up correctly.
 
 ## MacPorts
 
@@ -15,39 +15,25 @@ How to install:
 
 ### Node.js
 
-Free, open-source, cross-platform JavaScript runtime environment.
+[Node.js](https://nodejs.org) is a free, open-source, cross-platform JavaScript runtime environment that lets developers create servers, web apps, command line tools and scripts.
 
-Use `n` to manage Node.js versions.
-
-Make sure `$N_PREFIX` is set up correctly in `$ZDOTDIR/.zprofile`.
-
+Install using MacPorts:
 ```sh
-# Install n using MacPorts
-sudo port install n
-
-# Install Node.js LTS version
-n lts
-
-# Fast and disk space efficient package manager for projects
-corepack enable pnpm
+sudo port install nodejs24 npm11
 ```
 
-### Go
-
-The Go programming language is an open source project to make programmers more productive.
-
-Make sure `$GOPATH` is set up correctly in `$ZDOTDIR/.zprofile`.
-
-- Install Go using MacPorts
+(Optional) Install pnpm as a better package manager for projects
 ```sh
-# Install Go using MacPorts
-sudo port install go
+npm i -g pnpm
+```
 
-# Install gopls, the language server for Go
-go install golang.org/x/tools/gopls@latest
+### Rust
 
-# Install golangci-lint, the fast linters runner for Go
-curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b $(go env GOPATH)/bin latest
+[Rust](https://rust-lang.org) is a general-purpose programming language which emphasizes performance, type safety, concurrency, and memory safety.
+
+Install using the installation script:
+```sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 ```
 
 ### Python
@@ -62,21 +48,9 @@ sudo port install uv
 
 # Install python using uv
 uv python install
-
-# Install zsh completion
-uv generate-shell-completion zsh > $XDG_DATA_HOME/zsh/site-functions/_uv
-uvx --generate-shell-completion zsh > $XDG_DATA_HOME/zsh/site-functions/_uvx
-
-sudo ln -s $XDG_DATA_HOME/zsh/site-functions/_uv /usr/local/share/zsh/site-functions/_uv
-sudo ln -s $XDG_DATA_HOME/zsh/site-functions/_uvx /usr/local/share/zsh/site-functions/_uvx
 ```
 
 ## Tools
-
-### gemini-cli - AI coding agent CLI
-```sh
-npm i -g @google/gemini-cli
-```
 
 ### mactop - terminal-based monitoring tool designed for Apple Silicon
 
@@ -87,9 +61,9 @@ sudo port install mactop
 ## Applications
 
 List of good applications to have:
-- [Antigravity](https://antigravity.google) - AI coding agent IDE
 - [AppCleaner](https://freemacsoft.net/appcleaner) - Application uninstaller
 - [Ghostty](https://ghostty.org) - Platform-native UI and GPU accelerated terminal emulator
 - [Helium](https://helium.computer) - No adware, no bloat, no noise web browser
 - [Hyperkey](https://hyperkey.app) - Hyper key mapping tool for macOS
 - [OrbStack](https://orbstack.dev) - Fast replacement for Docker Desktop
+- [Zed](https://zed.dev) - Minimal code editor crafted for speed
