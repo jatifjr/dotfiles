@@ -21,7 +21,7 @@
     },
   },
   "agent": {
-    "dock": "right",
+    "dock": "left",
     "default_model": {
       "provider": "google",
       "model": "gemini-3-flash-preview",
@@ -31,16 +31,16 @@
     "model_parameters": [],
   },
   "project_panel": {
-    "dock": "left",
+    "dock": "right",
   },
   "outline_panel": {
-    "dock": "left",
+    "dock": "right",
   },
   "collaboration_panel": {
-    "dock": "left",
+    "dock": "right",
   },
   "git_panel": {
-    "dock": "left",
+    "dock": "right",
   },
   "icon_theme": {
     "mode": "system",
