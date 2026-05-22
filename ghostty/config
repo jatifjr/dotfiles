@@ -9,7 +9,7 @@ background-opacity = 0
 background-blur = macos-glass-regular
 
 unfocused-split-opacity = 1
-split-divider-color = #555555
+split-divider-color = #404040
 
 # colors
 theme = Terminal Basic Dark
