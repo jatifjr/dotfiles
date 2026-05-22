@@ -6,25 +6,11 @@
   // To see all of Zed's default settings without changing your
   // custom settings, run `zed: open default settings` from the
   // command palette (cmd-shift-p / ctrl-shift-p)
-  "context_servers": {
-    "mcp-server-context7": {
-      "enabled": true,
-      "remote": false,
-      "settings": {
-        "context7_api_key": "ctx7sk-30f4058d-1df0-457b-878e-3d00fe2299d9",
-      },
-    },
-  },
-  "agent_servers": {
-    "gemini": {
-      "type": "registry",
-    },
-  },
   "agent": {
     "dock": "left",
     "default_model": {
       "provider": "google",
-      "model": "gemini-3-flash-preview",
+      "model": "gemini-3.1-flash-lite",
       "enable_thinking": false,
     },
     "favorite_models": [],
@@ -49,13 +35,13 @@
   },
   "theme": {
     "mode": "system",
-    "light": "Vercel Light",
-    "dark": "Vercel Dark",
+    "light": "Min Light (Blurred)",
+    "dark": "Min Dark (Blurred)",
   },
   "ui_font_family": ".SystemUIFont",
   "ui_font_size": 14.0,
   "buffer_font_family": "SF Mono",
-  "buffer_font_size": 13.0,
+  "buffer_font_size": 12.0,
   "session": {
     "trust_all_worktrees": true,
   },
