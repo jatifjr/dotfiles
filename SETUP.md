@@ -1,4 +1,4 @@
-# Nice To Have
+# Setup
 
 Ensure `.zshenv`, `.zprofile`, and `.zshrc` are configured correctly before proceeding with any setup.
 
