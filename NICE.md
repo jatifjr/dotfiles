@@ -1,6 +1,6 @@
 # Nice To Have
 
-> **Note:** Ensure `.zshenv`, `.zprofile`, and `.zshrc` are configured correctly before proceeding with any setup.
+Ensure `.zshenv`, `.zprofile`, and `.zshrc` are configured correctly before proceeding with any setup.
 
 ## MacPorts
 
@@ -19,7 +19,7 @@ The [MacPorts](https://www.macports.org) Project is an open-source community ini
 
 Use [uv](https://docs.astral.sh/uv) to manage Python versions, packages, and projects.
 
-Install uv via MacPorts:
+Install via MacPorts:
 ```sh
 sudo port install uv
 ```
@@ -48,7 +48,7 @@ Install pnpm:
 ```sh
 sudo npm i -g pnpm
 ```
-> **Note:** We install pnpm via npm rather than MacPorts because the MacPorts package is rarely updated.
+> **Note:** Install pnpm via npm rather than MacPorts because the MacPorts package is rarely updated.
 
 ### Go
 
