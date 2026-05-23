@@ -1,7 +1,3 @@
-# My Personal Dotfiles
-
-This repository contains my personal dotfiles.
-
 ## Disclaimer
 
 These configurations are highly specific to my personal setup, tools, and workflow on macOS. They are not intended to be a general-purpose template or to be cloned by others.
