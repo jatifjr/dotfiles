@@ -95,8 +95,10 @@ sudo port install mactop
 ## Applications
 
 Recommended applications for macOS:
+- [Aerospace](https://github.com/nikitabobko/AeroSpace) – i3-like tiling window manager for macOS.
 - [AppCleaner](https://freemacsoft.net/appcleaner) – Thorough application uninstaller.
 - [Ghostty](https://ghostty.org) – Fast, GPU-accelerated, platform-native terminal emulator.
 - [Helium](https://helium.computer) – Minimalist web browser with no adware or bloat.
 - [Hyperkey](https://hyperkey.app) – Remaps the Caps Lock key to a dedicated hyper key.
+- [UnnaturalScrollWheels](https://github.com/ther0n/UnnaturalScrollWheels) – Change mouse scroll wheel to a natural scrolling direction.
 - [Zed](https://zed.dev) – High-performance, minimal code editor built for speed.
