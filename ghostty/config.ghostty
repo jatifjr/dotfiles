@@ -20,5 +20,5 @@ font-thicken = true
 font-family = SF Mono
 
 # macos
-macos-titlebar-style = tabs
+macos-titlebar-style = hidden
 macos-option-as-alt = true
