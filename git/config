@@ -1,3 +1,5 @@
 [user]
 	name = Ahmad Fajar Kusumajati
 	email = 90365537+jatifjr@users.noreply.github.com
+[init]
+	defaultbranch = main
