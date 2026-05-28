@@ -1,5 +1,7 @@
 config-version = 2
 
+start-at-login = true
+
 persistent-workspaces = []
 
 enable-normalization-flatten-containers = true
