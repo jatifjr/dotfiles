@@ -39,6 +39,9 @@ bindkey '^N' history-beginning-search-forward
 
 
 # Aliases
+alias grep='grep --color=auto'
+
 alias ls='ls --color=auto'
-alias ll='ls -hl'
 alias la='ls -hlA'
+
+alias docker='podman'
