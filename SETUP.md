@@ -68,13 +68,13 @@ Install via MacPorts:
 sudo port install cargo rust-src rust-analyzer
 ```
 
-### Colima
+### Podman
 
-[Colima](https://colima.run) provides lightweight container runtimes for macOS with support for Docker, containerd, Kubernetes, and Incus.
+[Podman](https://podman.io) is a daemonless container engine for developing, managing, and running OCI containers and pods.
 
 Install via MacPorts:
 ```sh
-sudo port install colima docker docker-compose-plugins docker-credential-helper-osxkeychain
+sudo port install podman podman-compose
 ```
 
 ---
