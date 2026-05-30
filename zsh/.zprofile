@@ -43,6 +43,9 @@ typeset -U path fpath manpath
     path=("$CARGO_HOME/bin" $path)
 }
 
+# Docker
+(( $+commands[docker] )) && export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+
 # Apple Terminal
 [[ $TERM_PROGRAM == Apple_Terminal ]] && SHELL_SESSIONS_DISABLE=1
 

@@ -15,7 +15,7 @@ The [MacPorts](https://www.macports.org) Project is an open-source community ini
 
 ## Development Toolchains
 
-### Python
+### Python (uv)
 
 Use [uv](https://docs.astral.sh/uv) to manage Python versions, packages, and projects.
 
@@ -68,13 +68,13 @@ Install via MacPorts:
 sudo port install cargo rust-src rust-analyzer
 ```
 
-### Podman
+### Docker (Colima)
 
-[Podman](https://podman.io) is a daemonless container engine for developing, managing, and running OCI containers and pods.
+[Colima](https://colima.run) provides lightweight container runtimes for macOS with support for Docker, containerd, Kubernetes, and Incus.
 
 Install via MacPorts:
 ```sh
-sudo port install podman podman-compose
+sudo port install colima docker docker-compose-plugin docker-credential-helper-osxkeychain
 ```
 
 ---
