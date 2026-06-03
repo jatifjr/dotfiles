@@ -1,10 +1,6 @@
 " Packs
 let s:packs=[
-  \ 'https://github.com/tpope/vim-commentary.git',
   \ 'https://github.com/tpope/vim-sensible.git',
-  \ 'https://github.com/tpope/vim-sleuth.git',
-  \ 'https://github.com/tpope/vim-surround.git',
-  \ 'https://github.com/ctrlpvim/ctrlp.vim.git',
   \ ]
 
 if executable('git')
@@ -38,7 +34,7 @@ syntax on
 set nobackup
 set noswapfile
 set noundofile
-set viminfo+=n~/.local/state/viminfo
+set viminfo+=n~/.local/state/vim/viminfo
 
 set mouse=a
 set clipboard=unnamed
@@ -49,11 +45,3 @@ set number
 " Theme
 set t_Co=16
 colorscheme quiet
-
-
-" Packs Configs
-let g:ctrlp_user_command = 'find %s -type f -not -path "*/.git/*"'
-
-
-" Keymaps
-nnoremap <leader>f :CtrlPMixed<CR>
