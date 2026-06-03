@@ -17,30 +17,29 @@ typeset -U path fpath manpath
 (( $+commands[uv] )) && {
     export UV_PYTHON_BIN_DIR="$XDG_DATA_HOME/uv/bin"
     export UV_TOOL_BIN_DIR="$XDG_DATA_HOME/uv/bin"
-    path=("$XDG_DATA_HOME/uv/bin" $path)
+    [[ -d "$XDG_DATA_HOME/uv/bin" ]] && path=("$XDG_DATA_HOME/uv/bin" $path)
 }
 
 # Node.js
 (( $+commands[npm] )) && {
     export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
     export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-}
-
-(( $+commands[pnpm] )) && {
-    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-    path=("$PNPM_HOME/bin" $path)
+    (( $+commands[pnpm] )) && {
+        export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+        [[ -d "$PNPM_HOME/bin/" ]] && path=("$PNPM_HOME/bin" $path)
+    }
 }
 
 # Go
 (( $+commands[go] )) && {
     export GOPATH="$XDG_DATA_HOME/go"
-    path=("$GOPATH/bin" $path)
+    [[ -d "$GOPATH/bin" ]] && path=("$GOPATH/bin" $path)
 }
 
 # Rust
 (( $+commands[cargo] )) && {
     export CARGO_HOME="$XDG_DATA_HOME/cargo"
-    path=("$CARGO_HOME/bin" $path)
+    [[ -d "$CARGO_HOME/bin" ]] && path=("$CARGO_HOME/bin" $path)
 }
 
 # Docker
