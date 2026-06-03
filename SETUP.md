@@ -15,6 +15,8 @@ The [MacPorts](https://www.macports.org) Project is an open-source community ini
 
 ## Development Toolchains
 
+Not every toolchain needs to be installed.
+
 ### Python (uv)
 
 Use [uv](https://docs.astral.sh/uv) to manage Python versions, packages, and projects.
@@ -74,7 +76,7 @@ sudo port install cargo rust-src rust-analyzer
 
 Install via MacPorts:
 ```sh
-sudo port install colima docker docker-compose-plugin docker-credential-helper-osxkeychain
+sudo port install colima docker docker-compose-plugin docker-buildx-plugin docker-credential-helper-osxkeychain
 ```
 
 ---
