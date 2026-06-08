@@ -1,5 +1,7 @@
 [user]
 	name = Ahmad Fajar Kusumajati
 	email = 90365537+jatifjr@users.noreply.github.com
+[credential]
+	helper = osxkeychain
 [init]
 	defaultbranch = main
