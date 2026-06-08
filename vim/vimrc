@@ -34,7 +34,7 @@ syntax on
 set nobackup
 set noswapfile
 set noundofile
-set viminfo+=n~/.local/state/vim/viminfo
+set viminfo+=n~/.local/state/viminfo
 
 set mouse=a
 set clipboard=unnamed
