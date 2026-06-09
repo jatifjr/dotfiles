@@ -1,82 +1,132 @@
 # Setup
 
-Ensure `.zshenv`, `.zprofile`, and `.zshrc` are configured correctly before proceeding with any setup.
+Configure `.zshenv`, `.zprofile`, and `.zshrc` before proceeding, and restart the shell after any installation.
 
-## MacPorts
+---
 
-The [MacPorts](https://www.macports.org) Project is an open-source community initiative that provides an easy-to-use system for compiling, installing, and upgrading command-line, X11, or Aqua-based open-source software on macOS.
+## Applications
 
-**Installation:**
-1. Install Apple's Command Line Developer Tools: `xcode-select --install`
-2. Download the MacPorts installer from the [official website](https://www.macports.org/install.php).
-3. Run the downloaded `.pkg` file to complete the installation.
+| App | Description |
+|-----|-------------|
+| [Aerospace](https://github.com/nikitabobko/AeroSpace) | i3-like tiling window manager for macOS |
+| [AppCleaner](https://freemacsoft.net/appcleaner) | Thorough application uninstaller |
+| [Ghostty](https://ghostty.org) | Fast, GPU-accelerated, platform-native terminal emulator |
+| [Helium](https://helium.computer) | Minimalist web browser, no adware or bloat |
+| [Hyperkey](https://hyperkey.app) | Caps Lock to hyper key remapper |
+| [LinearMouse](https://linearmouse.app) | The mouse and trackpad utility for Mac |
+| [OrbStack](https://orbstack.dev) | Fast and lightweight Docker Desktop alternative |
+| [Zed](https://zed.dev) | High-performance, minimal code editor |
 
 ---
 
 ## Development Toolchains
 
-Not every toolchain needs to be installed.
+### Python
 
-### Python (uv)
+[Python](https://www.python.org) is a high-level, general-purpose language known for its readability, extensive standard library, and automatic memory management.
 
-Use [uv](https://docs.astral.sh/uv) to manage Python versions, packages, and projects.
+Managed via [uv](https://docs.astral.sh/uv).
 
-Install via MacPorts:
+**Installation**
 ```sh
-sudo port install uv
+curl -LsSf https://astral.sh/uv/install.sh | \
+env \
+    UV_INSTALL_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/uv/bin" \
+    UV_NO_MODIFY_PATH=1 \
+    sh
 ```
 
-Install the latest Python version using uv:
+**Shell completions**
+```sh
+uv generate-shell-completion zsh > ${XDG_DATA_HOME:-$HOME/.local/share}/zsh/site-functions/_uv
+uvx --generate-shell-completion zsh > ${XDG_DATA_HOME:-$HOME/.local/share}/zsh/site-functions/_uvx
+```
+
+**Updates**
+```sh
+uv self update
+```
+
+**Python version**
 ```sh
 uv python install
 ```
 
+---
+
 ### Node.js
 
-[Node.js](https://nodejs.org) is a free, open-source, cross-platform JavaScript runtime environment for building servers, web apps, command-line tools, and scripts.
+[Node.js](https://nodejs.org) is a cross-platform JavaScript runtime for servers, web apps, and command-line tooling.
 
-Install via MacPorts:
+Managed via [pnpm](https://pnpm.io).
+
+**Installation**
 ```sh
-sudo port install nodejs24 npm11
+curl -fsSL https://get.pnpm.io/install.sh | sh -
 ```
 
-Update npm to the latest version:
+**Shell completions**
 ```sh
-sudo npm u -g npm
+pnpm completion zsh > ${XDG_DATA_HOME:-$HOME/.local/share}/zsh/site-functions/_pnpm
 ```
-> ⚠️ **Note:** Installing global packages with MacPorts-installed npm requires `sudo` privileges. Proceed with caution.
 
-Install pnpm:
+**Updates**
 ```sh
-sudo npm i -g pnpm
+pnpm self-update
 ```
-> **Note:** Install pnpm via npm rather than MacPorts because the MacPorts package is rarely updated.
 
-### Go
-
-[Go](https://go.dev) is an open-source, compiled language designed by Google for developer productivity, seamless concurrency, and high-performance networking.
-
-Install via MacPorts:
+**Node.js version**
 ```sh
-sudo port install go gopls
+pnpm runtime set node lts --global
 ```
+
+---
 
 ### Rust
 
-[Rust](https://rust-lang.org) is a general-purpose programming language focused on performance, type safety, concurrency, and memory safety.
+[Rust](https://rust-lang.org) is a systems language focused on performance, type safety, and memory safety without a garbage collector.
 
-Install via MacPorts:
+Managed via [rustup](https://rust-lang.org/tools/install).
+
+**Installation**
 ```sh
-sudo port install cargo rust-src rust-analyzer
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
+env \
+    RUSTUP_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/rustup" \
+    CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo" \
+    sh -s -- --no-modify-path
 ```
 
-### Docker (Colima)
-
-[Colima](https://colima.run) provides lightweight container runtimes for macOS with support for Docker, containerd, Kubernetes, and Incus.
-
-Install via MacPorts:
+**Shell completions**
 ```sh
-sudo port install colima docker docker-compose-plugin docker-buildx-plugin docker-credential-helper-osxkeychain
+rustup completions zsh > ${XDG_DATA_HOME:-$HOME/.local/share}/zsh/site-functions/_rustup
+rustup completions zsh cargo > ${XDG_DATA_HOME:-$HOME/.local/share}/zsh/site-functions/_cargo
+```
+
+**Updates**
+```sh
+rustup update        # toolchain
+rustup self update   # rustup itself
+```
+
+---
+
+## MacPorts
+
+[MacPorts](https://www.macports.org) manages command-line, X11, and Aqua-based open-source software on macOS. Supplements development toolchains with system and CLI packages.
+
+**Installation**
+
+1. Install Apple's Command Line Developer Tools:
+```sh
+xcode-select --install
+```
+
+2. Download and run the macOS package installer from the [MacPorts Releases](https://www.macports.org/install.php) page.
+
+3. Update the ports tree:
+```sh
+sudo port selfupdate
 ```
 
 ---
@@ -87,20 +137,9 @@ sudo port install colima docker docker-compose-plugin docker-buildx-plugin docke
 
 [Mactop](https://github.com/metaspartan/mactop) is a terminal-based system monitor designed specifically for Apple Silicon.
 
-Install via MacPorts:
+Managed via [MacPorts](https://www.macports.org).
+
+**Installation**
 ```sh
 sudo port install mactop
 ```
-
----
-
-## Applications
-
-Recommended applications for macOS:
-- [Aerospace](https://github.com/nikitabobko/AeroSpace) – i3-like tiling window manager for macOS.
-- [AppCleaner](https://freemacsoft.net/appcleaner) – Thorough application uninstaller.
-- [Ghostty](https://ghostty.org) – Fast, GPU-accelerated, platform-native terminal emulator.
-- [Helium](https://helium.computer) – Minimalist web browser with no adware or bloat.
-- [Hyperkey](https://hyperkey.app) – Remaps the Caps Lock key to a dedicated hyper key.
-- [UnnaturalScrollWheels](https://github.com/ther0n/UnnaturalScrollWheels) – Change mouse scroll wheel to a natural scrolling direction.
-- [Zed](https://zed.dev) – High-performance, minimal code editor built for speed.
