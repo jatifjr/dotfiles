@@ -1,51 +1,45 @@
 typeset -U path fpath manpath
 
 # MacPorts
-[[ -d /opt/local ]] && {
+[[ -d "/opt/local" ]] && {
     path=("/opt/local/bin" "/opt/local/sbin" $path)
     fpath=("/opt/local/share/zsh/site-functions" $fpath)
     manpath=("/opt/local/share/man" $manpath)
 }
 
-# User bin
-[[ -d "$HOME/.local/bin" ]] && path=("$HOME/.local/bin" $path)
-
-# User site functions
-[[ -d "$XDG_DATA_HOME/zsh/site-functions" ]] && fpath=("$XDG_DATA_HOME/zsh/site-functions" $fpath)
-
-# Python
-(( $+commands[uv] )) && {
-    export UV_PYTHON_BIN_DIR="$XDG_DATA_HOME/uv/bin"
-    export UV_TOOL_BIN_DIR="$XDG_DATA_HOME/uv/bin"
-    [[ -d "$XDG_DATA_HOME/uv/bin" ]] && path=("$XDG_DATA_HOME/uv/bin" $path)
+# User
+[[ -d "$HOME/.local" ]] && {
+    path=("$HOME/.local/bin" $path)
+    fpath=("$HOME/.local/share/zsh/site-functions" $fpath)
+    manpath=("$HOME/.local/share/man" $manpath)
 }
 
-# Node.js
-(( $+commands[npm] )) && {
-    export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
-    export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-    (( $+commands[pnpm] )) && {
-        export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-        [[ -d "$PNPM_HOME/bin/" ]] && path=("$PNPM_HOME/bin" $path)
-    }
+# Docker (OrbStack)
+[[ -d "$HOME/.orbstack" ]] && {
+    path=("$HOME/.orbstack/bin" $path)
+    fpath=("$HOME/.orbstack/shell/completions/zsh" $fpath)
 }
 
-# Go
-(( $+commands[go] )) && {
-    export GOPATH="$XDG_DATA_HOME/go"
-    [[ -d "$GOPATH/bin" ]] && path=("$GOPATH/bin" $path)
+# Python (uv)
+[[ -d "$XDG_DATA_HOME/uv" ]] && {
+    export UV_INSTALL_DIR="$XDG_DATA_HOME/uv/bin"
+    export UV_PYTHON_BIN_DIR="$UV_INSTALL_DIR"
+    export UV_TOOL_BIN_DIR="$UV_INSTALL_DIR"
+    path=("$UV_INSTALL_DIR" $path)
 }
 
-# Rust
-(( $+commands[cargo] )) && {
+# Node.js (pnpm)
+[[ -d "$XDG_DATA_HOME/pnpm" ]] && {
+    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+    path=("$PNPM_HOME/bin" $path)
+}
+
+# Rust (rustup + cargo)
+[[ -d "$XDG_DATA_HOME/rustup" ]] && {
+    export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
     export CARGO_HOME="$XDG_DATA_HOME/cargo"
-    [[ -d "$CARGO_HOME/bin" ]] && path=("$CARGO_HOME/bin" $path)
+    path=("$CARGO_HOME/bin" $path)
 }
-
-# Docker
-(( $+commands[docker] )) && export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 
 # Apple Terminal
 [[ $TERM_PROGRAM == Apple_Terminal ]] && SHELL_SESSIONS_DISABLE=1
-
-export PATH FPATH MANPATH
