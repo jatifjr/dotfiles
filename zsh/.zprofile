@@ -1,10 +1,10 @@
 typeset -U path fpath manpath
 
-# MacPorts
-[[ -d "/opt/local" ]] && {
-    path=("/opt/local/bin" "/opt/local/sbin" $path)
-    fpath=("/opt/local/share/zsh/site-functions" $fpath)
-    manpath=("/opt/local/share/man" $manpath)
+# Homebrew
+[[ -d "/opt/homebrew" ]] && {
+    path=("/opt/homebrew/bin" "/opt/homebrew/sbin" $path)
+    fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
+    manpath=("/opt/homebrew/share/man" $manpath)
 }
 
 # User
@@ -14,18 +14,11 @@ typeset -U path fpath manpath
     manpath=("$HOME/.local/share/man" $manpath)
 }
 
-# Docker (OrbStack)
-[[ -d "$HOME/.orbstack" ]] && {
-    path=("$HOME/.orbstack/bin" $path)
-    fpath=("$HOME/.orbstack/shell/completions/zsh" $fpath)
-}
-
 # Python (uv)
 [[ -d "$XDG_DATA_HOME/uv" ]] && {
-    export UV_INSTALL_DIR="$XDG_DATA_HOME/uv/bin"
-    export UV_PYTHON_BIN_DIR="$UV_INSTALL_DIR"
-    export UV_TOOL_BIN_DIR="$UV_INSTALL_DIR"
-    path=("$UV_INSTALL_DIR" $path)
+    export UV_TOOL_BIN_DIR="$XDG_DATA_HOME/uv/bin"
+    export UV_PYTHON_BIN_DIR="$UV_TOOL_BIN_DIR"
+    path=("$UV_TOOL_BIN_DIR" $path)
 }
 
 # Node.js (pnpm)
@@ -34,12 +27,15 @@ typeset -U path fpath manpath
     path=("$PNPM_HOME/bin" $path)
 }
 
-# Rust (rustup + cargo)
-[[ -d "$XDG_DATA_HOME/rustup" ]] && {
-    export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-    export CARGO_HOME="$XDG_DATA_HOME/cargo"
-    path=("$CARGO_HOME/bin" $path)
+# Go
+(( $+commands[go] )) && {
+    export GOPATH="$XDG_DATA_HOME/go"
+    path=("$GOPATH/bin" $path)
 }
+
+# Docker
+(( $+commands[docker] )) && export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+
 
 # Apple Terminal
 [[ $TERM_PROGRAM == Apple_Terminal ]] && SHELL_SESSIONS_DISABLE=1
