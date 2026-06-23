@@ -1,6 +1,8 @@
 " Packs
 let s:packs=[
+  \ 'https://github.com/tpope/vim-commentary.git',
   \ 'https://github.com/tpope/vim-sensible.git',
+  \ 'https://github.com/tpope/vim-sleuth.git',
   \ ]
 
 if executable('git')
