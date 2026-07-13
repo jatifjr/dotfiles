@@ -1,10 +1,11 @@
 typeset -U path fpath manpath
 
-# Homebrew
-[[ -d "/opt/homebrew" ]] && {
-    path=("/opt/homebrew/bin" "/opt/homebrew/sbin" $path)
-    fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
-    manpath=("/opt/homebrew/share/man" $manpath)
+
+# MacPorts
+[[ -d "/opt/local" ]] && {
+    path=("/opt/local/bin" "/opt/local/sbin" $path)
+    fpath=("/opt/local/share/zsh/site-functions" $fpath)
+    manpath=("/opt/local/share/man" $manpath)
 }
 
 # User
@@ -14,18 +15,6 @@ typeset -U path fpath manpath
     manpath=("$HOME/.local/share/man" $manpath)
 }
 
-# Python (uv)
-[[ -d "$XDG_DATA_HOME/uv" ]] && {
-    export UV_TOOL_BIN_DIR="$XDG_DATA_HOME/uv/bin"
-    export UV_PYTHON_BIN_DIR="$UV_TOOL_BIN_DIR"
-    path=("$UV_TOOL_BIN_DIR" $path)
-}
-
-# Node.js (pnpm)
-[[ -d "$XDG_DATA_HOME/pnpm" ]] && {
-    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-    path=("$PNPM_HOME/bin" $path)
-}
 
 # Go
 (( $+commands[go] )) && {
@@ -33,8 +22,27 @@ typeset -U path fpath manpath
     path=("$GOPATH/bin" $path)
 }
 
-# Docker
-(( $+commands[docker] )) && export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+# Python (uv)
+[[ -d "$XDG_DATA_HOME/uv" ]] && {
+    export UV_PYTHON_BIN_DIR="$XDG_DATA_HOME/uv/bin"
+    export UV_TOOL_BIN_DIR="$UV_PYTHON_BIN_DIR"
+    path=("$UV_PYTHON_BIN_DIR" $path)
+}
+
+# Node.js (pnpm)
+[[ -d "$XDG_DATA_HOME/pnpm" ]] && {
+    export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
+    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+    path=("$PNPM_HOME/bin" $path)
+}
+
+
+# Docker (lima)
+(( $+commands[limactl] && $+commands[docker] )) && {
+    export LIMA_HOME="$XDG_DATA_HOME/lima"
+    export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+    export DOCKER_HOST="$(limactl list default --format 'unix://{{.Dir}}/sock/docker.sock' 2>/dev/null)"
+}
 
 
 # Apple Terminal

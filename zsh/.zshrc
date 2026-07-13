@@ -15,7 +15,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 
 
-# Completions
+# Completion
 autoload -Uz compinit && compinit
 
 zstyle ':completion:*' menu select
@@ -42,3 +42,14 @@ bindkey '^N' history-beginning-search-forward
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias la='ls -hlA'
+
+
+# Defaults
+export EDITOR="/usr/bin/vim"
+export VISUAL="/usr/bin/vim"
+export PAGER="/usr/bin/less"
+export LESS="-FRX"
+
+
+# Environment variables
+[[ -f "$ZDOTDIR/.env" ]] && source "$ZDOTDIR/.env"
