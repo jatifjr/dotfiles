@@ -4,56 +4,46 @@ Configure `.zshenv`, `.zprofile`, and `.zshrc` before proceeding, and restart th
 
 ---
 
-## Homebrew
+## MacPorts
 
-[Homebrew](https://brew.sh) is a free and open-source package manager that simplifies installing and managing software on macOS.
-
-Most of the development toolchains, cli tools, and applications are managed via Homebrew.
+[MacPorts](https://www.macports.org) is an open-source system that simplifies installing, upgrading, and compiling command-line, X11, or Aqua-based open-source software on macOS.
 
 Installation:
+1. Install Xcode Command Line Tools:
 ```sh
-curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+xcode-select --install
 ```
 
-Commands:
+2. Download and run the macOS package installer from the [MacPorts Releases](https://www.macports.org/install.php) page.
+
+3. Add shell completion:
 ```sh
-brew install    # Install a package
-brew uninstall  # Uninstall a package
-brew update     # Update Homebrew itself
-brew outdated   # List outdated packages
-brew upgrade    # Upgrade outdated packages
-brew cleanup    # Remove outdated package versions
+curl -fsSL "https://raw.githubusercontent.com/zsh-users/zsh-completions/refs/heads/master/src/_port" | sudo tee "/opt/local/share/zsh/site-functions/_port" > /dev/null
+# restart shell
+```
+
+4. Update the ports tree:
+```sh
+sudo port selfupdate
 ```
 
 ---
 
 ## Development Toolchains
 
-### Python
+### Go
 
-[Python](https://www.python.org) is a high-level programming language known for its readability, simplicity, and versatility.
-
-Managed via [uv](https://docs.astral.sh/uv).
+[Go](https://go.dev) is a statically typed, compiled programming language designed for efficiency and simplicity.
 
 Installation:
 ```sh
-curl -fsSL https://astral.sh/uv/install.sh | UV_INSTALL_DIR="$HOME/.local/share/uv/bin" UV_NO_MODIFY_PATH=1 sh
+sudo port install go
 ```
 
 Shell completion:
 ```sh
-uv generate-shell-completion zsh > "$HOME/.local/share/zsh/site-functions/_uv"
-uvx --generate-shell-completion zsh > "$HOME/.local/share/zsh/site-functions/_uvx"
-```
-
-Updates:
-```sh
-uv self update
-```
-
-Python installation:
-```sh
-uv python install
+curl -fsSL "https://raw.githubusercontent.com/zsh-users/zsh-completions/refs/heads/master/src/_golang" | sudo tee "/opt/local/share/zsh/site-functions/_golang" > /dev/null
+# restart shell
 ```
 
 ---
@@ -72,6 +62,7 @@ curl -fsSL https://get.pnpm.io/install.sh | PNPM_HOME="$HOME/.local/share/pnpm" 
 Shell completion:
 ```sh
 pnpm completion zsh > "$HOME/.local/share/zsh/site-functions/_pnpm"
+# restart shell
 ```
 
 Updates:
@@ -86,18 +77,32 @@ pnpm runtime set node lts -g
 
 ---
 
-### Go
+### Python
 
-[Go](https://go.dev) is a statically typed, compiled programming language designed for efficiency and simplicity.
+[Python](https://www.python.org) is a high-level programming language known for its readability, simplicity, and versatility.
+
+Managed via [uv](https://docs.astral.sh/uv).
 
 Installation:
 ```sh
-brew install go
+curl -fsSL https://astral.sh/uv/install.sh | UV_INSTALL_DIR="$HOME/.local/share/uv/bin" UV_NO_MODIFY_PATH=1 sh
 ```
 
 Shell completion:
 ```sh
-curl -fsSLo "$HOME/.local/share/zsh/site-functions/_go" "https://raw.githubusercontent.com/zsh-users/zsh-completions/refs/heads/master/src/_golang"
+uv generate-shell-completion zsh > "$HOME/.local/share/zsh/site-functions/_uv"
+uvx --generate-shell-completion zsh > "$HOME/.local/share/zsh/site-functions/_uvx"
+# restart shell
+```
+
+Updates:
+```sh
+uv self update
+```
+
+Python installation:
+```sh
+uv python install
 ```
 
 ---
@@ -106,12 +111,18 @@ curl -fsSLo "$HOME/.local/share/zsh/site-functions/_go" "https://raw.githubuserc
 
 [Docker](https://www.docker.com) is a platform for developing, shipping, and running applications in containers.
 
-Docker requires [colima](https://colima.run) as runtime.
+Docker requires a runtime. [Lima](https://lima-vm.io) is a good runtime for macOS.
 
 Installation:
 ```sh
-brew install colima
-brew install docker docker-buildx docker-compose docker-credential-helper
+sudo port install docker docker-buildx-plugin docker-compose-plugin docker-credential-helper-osxkeychain lima
+# restart shell
+```
+
+Setup:
+```sh
+limactl create --name=default template:docker
+# restart shell
 ```
 
 ---
@@ -124,29 +135,22 @@ brew install docker docker-buildx docker-compose docker-credential-helper
 
 Installation:
 ```sh
-brew install mactop
+sudo port install mactop
 ```
 
 ---
 
 ## Applications
 
-Installed using Homebrew or `brew install --cask <name>`.
+Installed using the officially distributed installers.
 
 | Name | Description |
 |------|-------------|
-| [appcleaner](https://freemacsoft.net/appcleaner) | Thorough application uninstaller |
-| [ghostty](https://ghostty.org) | GPU accelerated, platform-native terminal emulator |
-| [helium-browser](https://helium.computer) | Minimal, privacy-first browser |
-| [hyperkey](https://hyperkey.app) | Hyper key remapper |
-| [linearmouse](https://linearmouse.app) | Mouse and trackpad utility |
-| [zed](https://zed.dev) | High-performance, minimal code editor |
-
-___
-
-Installed using the official distribution channels.
-
-| Name | Description |
-|------|-------------|
+| [AppCleaner](https://freemacsoft.net/appcleaner) | Thorough application uninstaller |
 | [Freesm Launcher](https://freesmlauncher.org) | Custom Minecraft launcher |
+| [Ghostty](https://ghostty.org) | GPU accelerated, platform-native terminal emulator |
+| [Helium Browser](https://helium.computer) | Minimal, privacy-first browser |
+| [Hyperkey](https://hyperkey.app) | Hyper key remapper |
+| [LinearMouse](https://linearmouse.app) | Mouse and trackpad utility |
 | [Velja](https://sindresorhus.com/velja) | Browser switcher |
+| [Zed](https://zed.dev) | High-performance, minimal code editor |
