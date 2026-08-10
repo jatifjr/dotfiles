@@ -16,7 +16,14 @@ typeset -U path fpath manpath
 }
 
 
-# Go
+# Node.js (pnpm)
+[[ -d "$XDG_DATA_HOME/pnpm" ]] && {
+    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+    path=("$PNPM_HOME/bin" $path)
+    export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
+}
+
+# Golang
 (( $+commands[go] )) && {
     export GOPATH="$XDG_DATA_HOME/go"
     path=("$GOPATH/bin" $path)
@@ -29,18 +36,8 @@ typeset -U path fpath manpath
     path=("$UV_PYTHON_BIN_DIR" $path)
 }
 
-# Node.js (pnpm)
-[[ -d "$XDG_DATA_HOME/pnpm" ]] && {
-    export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
-    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-    path=("$PNPM_HOME/bin" $path)
-}
-
-
 # Docker (lima)
 (( $+commands[limactl] && $+commands[docker] )) && {
-    export LIMA_HOME="$XDG_DATA_HOME/lima"
-    export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
     export DOCKER_HOST="$(limactl list default --format 'unix://{{.Dir}}/sock/docker.sock' 2>/dev/null)"
 }
 
