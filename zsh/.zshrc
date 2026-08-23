@@ -52,4 +52,8 @@ export LESS="-FRX"
 
 
 # Environment variables
-[[ -f "$ZDOTDIR/.env" ]] && source "$ZDOTDIR/.env"
+[[ -f "$ZDOTDIR/.env" ]] && {
+    set -a
+    source "$ZDOTDIR/.env"
+    set +a
+}
