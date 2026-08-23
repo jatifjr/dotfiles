@@ -1,183 +1,58 @@
 {
-  // Zed settings
-  //
-  // For information on how to configure Zed, see the Zed//zed.dev/docs/configuring-zed
-  //
-  // To see all of Zed's default settings without changing your
-  // custom settings, run `zed: open default settings` from the
-  // command palette (cmd-shift-p / ctrl-shift-p)
   "language_models": {
     "google": {
       "available_models": [
         {
           "name": "gemma-4-26b-a4b-it",
           "display_name": "Gemma 4 26B A4B IT",
-          "max_tokens": 128000,
+          "max_tokens": 256000
         },
         {
           "name": "gemma-4-31b-it",
           "display_name": "Gemma 4 31B IT",
-          "max_tokens": 128000,
+          "max_tokens": 256000
         },
-      ],
+      ]
     },
     "ollama": {
-      "api_url": "https://ollama.com",
+      "api_url": "https://ollama.com"
     },
     "opencode": {
-      "show_zen_models": false,
+      "show_zen_models": false
     },
-    "openai_compatible": {
-      "Cerebras": {
-        "api_url": "https://api.cerebras.ai/v1",
-        "available_models": [
-          {
-            "name": "gemma-4-31b-it",
-            "display_name": "gemma-4-31b-it",
-            "max_tokens": 128000,
-          },
-          {
-            "name": "gpt-oss-120b",
-            "display_name": "gpt-oss-120b",
-            "max_tokens": 128000,
-          },
-          {
-            "name": "zai-glm-4.7",
-            "display_name": "zai-glm-4.7",
-            "max_tokens": 128000,
-          },
-        ],
+  },
+  "agent_servers": {
+    "opencode": {
+      "default_config_options": {
+        "mode": "plan",
+        "effort": "max",
+        "model": "opencode-go/ox-alpha-free"
       },
-      "Groq": {
-        "api_url": "https://api.groq.com/openai/v1",
-        "available_models": [
-          {
-            "name": "openai/gpt-oss-120b",
-            "display_name": "gpt-oss-120b",
-            "max_tokens": 128000,
-            "max_output_tokens": 16000,
-          },
-          {
-            "name": "openai/gpt-oss-20b",
-            "display_name": "gpt-oss-20b",
-            "max_tokens": 128000,
-            "max_output_tokens": 16000,
-          },
-        ],
-      },
-      "Nvidia": {
-        "api_url": "https://integrate.api.nvidia.com/v1",
-        "available_models": [
-          {
-            "name": "google/gemma-4-31b-it",
-            "display_name": "gemma-4-31b-it",
-            "max_tokens": 128000,
-          },
-          {
-            "name": "openai/gpt-oss-120b",
-            "display_name": "gpt-oss-120b",
-            "max_tokens": 128000,
-          },
-          {
-            "name": "openai/gpt-oss-20b",
-            "display_name": "gpt-oss-20b",
-            "max_tokens": 128000,
-          },
-          {
-            "name": "deepseek-ai/deepseek-v4-pro",
-            "display_name": "deepseek-v4-pro",
-            "max_tokens": 128000,
-          },
-          {
-            "name": "deepseek-ai/deepseek-v4-flash",
-            "display_name": "deepseek-v4-flash",
-            "max_tokens": 128000,
-          },
-          {
-            "name": "z-ai/glm-5.2",
-            "display_name": "glm-5.2",
-            "max_tokens": 128000,
-          },
-          {
-            "name": "minimaxai/minimax-m3",
-            "display_name": "minimax-m3",
-            "max_tokens": 128000,
-          },
-          {
-            "name": "nvidia/nemotron-3-ultra-550b-a55b",
-            "display_name": "nemotron-3-ultra-550b-a55b",
-            "max_tokens": 128000,
-          },
-        ],
-      },
-    },
+      "type": "registry"
+    }
   },
   "agent": {
-    "show_turn_stats": true,
-    "use_modifier_to_send": true,
-    "dock": "left",
     "default_model": {
-      "provider": "opencode",
-      "model": "free/big-pickle",
-      "enable_thinking": false,
+      "effort": "high",
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-6",
+      "enable_thinking": true
     },
-    "favorite_models": [
-      {
-        "provider": "openrouter",
-        "model": "openrouter/free",
-        "enable_thinking": true
-      },
-      {
-        "provider": "opencode",
-        "model": "free/big-pickle",
-        "enable_thinking": false
-      }
-    ],
-    "model_parameters": [],
-  },
-  "project_panel": {
-    "dock": "right",
-  },
-  "outline_panel": {
-    "dock": "right",
-  },
-  "collaboration_panel": {
-    "dock": "right",
-  },
-  "git_panel": {
-    "dock": "right",
-  },
-  "status_bar": {
-    "show_active_file": true,
-  },
-  "tab_bar": {
-    "show": false,
+    "favorite_models": [],
+    "model_parameters": []
   },
   "toolbar": {
-    "quick_actions": false,
     "breadcrumbs": false,
-  },
-  "scrollbar": {
-    "show": "never",
-  },
-  "icon_theme": {
-    "mode": "system",
-    "light": "Zed (Default)",
-    "dark": "Zed (Default)",
+    "quick_actions": false,
   },
   "theme": {
     "mode": "system",
-    "light": "Catppuccin Latte (Blur) [Light]",
-    "dark": "Catppuccin Espresso (Blur) [Light]",
+    "light": "GitHub Light",
+    "dark": "GitHub Dark",
   },
   "ui_font_family": ".SystemUIFont",
   "ui_font_size": 14.0,
   "buffer_font_family": "SF Mono",
   "buffer_font_size": 12.0,
-  "session": {
-    "trust_all_worktrees": true,
-  },
-  "cli_default_open_behavior": "new_window",
-  "base_keymap": "VSCode",
   "vim_mode": true,
 }
