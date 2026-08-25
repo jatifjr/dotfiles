@@ -26,7 +26,7 @@
       "default_config_options": {
         "mode": "plan",
         "effort": "max",
-        "model": "opencode-go/ox-alpha-free"
+        "model": "opencode/x-preview-f-free"
       },
       "type": "registry"
     }
@@ -55,4 +55,5 @@
   "buffer_font_family": "SF Mono",
   "buffer_font_size": 12.0,
   "vim_mode": true,
+  "cli_default_open_behavior": "new_window",
 }
