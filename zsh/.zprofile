@@ -1,18 +1,18 @@
 typeset -U path fpath manpath
 
 
-# MacPorts
+# MacPorts Paths
 [[ -d "/opt/local" ]] && {
     path=("/opt/local/bin" "/opt/local/sbin" $path)
     fpath=("/opt/local/share/zsh/site-functions" $fpath)
     manpath=("/opt/local/share/man" $manpath)
 }
 
-# User
-[[ -d "$HOME/.local" ]] && {
-    path=("$HOME/.local/bin" $path)
-    fpath=("$HOME/.local/share/zsh/site-functions" $fpath)
-    manpath=("$HOME/.local/share/man" $manpath)
+# User Paths
+[[ -d "$XDG_BIN_HOME" ]] && {
+    path=("$XDG_BIN_HOME" $path)
+    fpath=("$XDG_DATA_HOME/zsh/site-functions" $fpath)
+    manpath=("$XDG_DATA_HOME/man" $manpath)
 }
 
 
@@ -21,19 +21,19 @@ typeset -U path fpath manpath
     export PNPM_HOME="$XDG_DATA_HOME/pnpm"
     path=("$PNPM_HOME/bin" $path)
     export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
+    export npm_config_cache="$NPM_CONFIG_CACHE"
+}
+
+# Bun
+[[ -d "$XDG_DATA_HOME/bun" ]] && {
+    export BUN_INSTALL="$XDG_DATA_HOME/bun"
+    path=("$BUN_INSTALL/bin" $path)
 }
 
 # Golang
 (( $+commands[go] )) && {
     export GOPATH="$XDG_DATA_HOME/go"
     path=("$GOPATH/bin" $path)
-}
-
-# Python (uv)
-[[ -d "$XDG_DATA_HOME/uv" ]] && {
-    export UV_PYTHON_BIN_DIR="$XDG_DATA_HOME/uv/bin"
-    export UV_TOOL_BIN_DIR="$UV_PYTHON_BIN_DIR"
-    path=("$UV_PYTHON_BIN_DIR" $path)
 }
 
 # Docker (lima)

@@ -34,6 +34,8 @@ PROMPT='%F{8}%n@%m%f %F{2}%2~%f %F{8}${vcs_info_msg_0_}%f%F{2}%#%f '
 
 
 # Keybindings
+bindkey -e
+
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
 
@@ -44,14 +46,14 @@ alias ls='ls --color=auto'
 alias la='ls -hlA'
 
 
-# Defaults
-export EDITOR="/usr/bin/vim"
-export VISUAL="/usr/bin/vim"
-export PAGER="/usr/bin/less"
+# Default environment variables
+export EDITOR="$(command -v vim)"
+export VISUAL="$(command -v vim)"
+export PAGER="$(command -v less)"
 export LESS="-FRX"
 
 
-# Environment variables
+# User environment variables
 [[ -f "$ZDOTDIR/.env" ]] && {
     set -a
     source "$ZDOTDIR/.env"
