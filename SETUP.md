@@ -31,23 +31,6 @@ sudo port selfupdate
 
 ## Development Toolchains
 
-### Go
-
-[Go](https://go.dev) is a statically typed, compiled programming language designed for efficiency and simplicity.
-
-Installation:
-```sh
-sudo port install go
-```
-
-Shell completion:
-```sh
-curl -fsSL "https://raw.githubusercontent.com/zsh-users/zsh-completions/refs/heads/master/src/_golang" | sudo tee "/opt/local/share/zsh/site-functions/_golang" > /dev/null
-# restart shell
-```
-
----
-
 ### Node.js
 
 [Node.js](https://nodejs.org) is a cross-platform, open-source JavaScript runtime environment.
@@ -75,37 +58,20 @@ Node.js installation:
 pnpm runtime set node lts -g
 ```
 
----
+### Go
 
-### Python
-
-[Python](https://www.python.org) is a high-level programming language known for its readability, simplicity, and versatility.
-
-Managed via [uv](https://docs.astral.sh/uv).
+[Go](https://go.dev) is a statically typed, compiled programming language designed for efficiency and simplicity.
 
 Installation:
 ```sh
-curl -fsSL https://astral.sh/uv/install.sh | UV_INSTALL_DIR="$HOME/.local/share/uv/bin" UV_NO_MODIFY_PATH=1 sh
+sudo port install go
 ```
 
 Shell completion:
 ```sh
-uv generate-shell-completion zsh > "$HOME/.local/share/zsh/site-functions/_uv"
-uvx --generate-shell-completion zsh > "$HOME/.local/share/zsh/site-functions/_uvx"
+curl -fsSL "https://raw.githubusercontent.com/zsh-users/zsh-completions/refs/heads/master/src/_golang" | sudo tee "/opt/local/share/zsh/site-functions/_golang" > /dev/null
 # restart shell
 ```
-
-Updates:
-```sh
-uv self update
-```
-
-Python installation:
-```sh
-uv python install
-```
-
----
 
 ### Docker
 
@@ -136,6 +102,15 @@ limactl create --name=default template:docker
 Installation:
 ```sh
 sudo port install mactop
+```
+
+### Ripgrep
+
+[Ripgrep](https://github.com/BurntSushi/ripgrep) is a fast and feature-rich grep-like tool.
+
+Installation:
+```sh
+sudo port install ripgrep
 ```
 
 ---
