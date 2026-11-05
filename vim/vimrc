@@ -1,49 +1,46 @@
 " Packs
-let s:packs=[
-  \ 'https://github.com/tpope/vim-commentary.git',
-  \ 'https://github.com/tpope/vim-sensible.git',
-  \ 'https://github.com/tpope/vim-sleuth.git',
+let s:dir = split(&packpath, ',')[0] . '/pack/plugins/start/'
+let s:repos = [
+  \ 'tpope/vim-commentary',
+  \ 'tpope/vim-sensible',
+  \ 'tpope/vim-sleuth',
   \ ]
 
-if executable('git')
-  let s:b=split(&packpath,',')[0].'/pack'|let k={}
-  for u in s:packs
-    let d=printf('%s/%s/start/%s',s:b,split(u,'/')[-2],fnamemodify(u,':t:r'))|let k[d]=1
-    if !isdirectory(d)|call system('git clone --depth 1 '.shellescape(u).' '.shellescape(d))|endif
+function! s:Sync(update) abort
+  for l:repo in s:repos
+    let l:path = s:dir . fnamemodify(l:repo, ':t')
+    if isdirectory(l:path)
+      if !a:update
+        continue
+      endif
+      let l:cmd = 'git -C ' . shellescape(l:path) . ' pull --ff-only'
+    else
+      let l:cmd = 'git clone --depth 1 https://github.com/' . l:repo
+        \ . ' ' . shellescape(l:path)
+    endif
+    echo l:repo . ': ' . trim(system(l:cmd))
+    silent! execute 'helptags' fnameescape(l:path . '/doc')
   endfor
-  for d in globpath(s:b,'*/start/*',0,1)|if !has_key(k,d)|call delete(d,'rf')|endif|endfor
-  for u in globpath(s:b,'*',0,1)|let s=u.'/start'|if !isdirectory(s)||empty(globpath(s,'*',0,1))|call delete(u,'rf')|endif|endfor
-  command! PackUpdate call s:pack_update()
-  function! s:pack_update()
-    let s:b=split(&packpath,',')[0].'/pack'|let u=0
-    for d in globpath(s:b,'*/start/*',0,1)
-      let b=system('git -C '.shellescape(d).' rev-parse HEAD')
-      call system('git -C '.shellescape(d).' pull --ff-only')
-      let a=system('git -C '.shellescape(d).' rev-parse HEAD')
-      if b!=a|let u=1|echom fnamemodify(d,':t').' updated'|endif
-    endfor
-    if !u|echo 'Packs are up to date'|endif
-  endfunction
+endfunction
+
+command! PackUpdate call s:Sync(1)
+
+if executable('git')
+  call s:Sync(0)
 endif
 
 packloadall
 
 
 " Options
-filetype plugin indent on
-syntax on
-
 set nobackup
 set noswapfile
-set noundofile
 set viminfo+=n~/.local/state/viminfo
-
 set mouse=a
 set clipboard=unnamed
-
 set number
 
 
 " Theme
 set t_Co=16
-colorscheme quiet
+silent! colorscheme quiet
