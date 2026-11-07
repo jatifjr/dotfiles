@@ -16,29 +16,9 @@ typeset -U path fpath manpath
 }
 
 
-# Node.js (pnpm)
-[[ -d "$XDG_DATA_HOME/pnpm" ]] && {
-    export PNPM_HOME="$XDG_DATA_HOME/pnpm"
-    path=("$PNPM_HOME/bin" $path)
-    export NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
-    export npm_config_cache="$NPM_CONFIG_CACHE"
-}
-
-# Bun
-[[ -d "$XDG_DATA_HOME/bun" ]] && {
-    export BUN_INSTALL="$XDG_DATA_HOME/bun"
-    path=("$BUN_INSTALL/bin" $path)
-}
-
-# Golang
-(( $+commands[go] )) && {
-    export GOPATH="$XDG_DATA_HOME/go"
-    path=("$GOPATH/bin" $path)
-}
-
-# Docker (lima)
-(( $+commands[limactl] && $+commands[docker] )) && {
-    export DOCKER_HOST="$(limactl list default --format 'unix://{{.Dir}}/sock/docker.sock' 2>/dev/null)"
+# Web Development Toolchain (vite-plus)
+[[ -d "$XDG_DATA_HOME/vite-plus" && -f "$XDG_CONFIG_HOME/vite-plus/env" ]] && {
+    source "$XDG_CONFIG_HOME/vite-plus/env"
 }
 
 
