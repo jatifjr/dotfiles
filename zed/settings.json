@@ -11,15 +11,12 @@
           "name": "gemma-4-31b-it",
           "display_name": "Gemma 4 31B IT",
           "max_tokens": 256000
-        },
+        }
       ]
-    },
-    "ollama": {
-      "api_url": "https://ollama.com"
     },
     "opencode": {
       "show_zen_models": false
-    },
+    }
   },
   "agent_servers": {
     "opencode": {
@@ -43,17 +40,17 @@
   },
   "toolbar": {
     "breadcrumbs": false,
-    "quick_actions": false,
+    "quick_actions": false
   },
   "theme": {
     "mode": "system",
     "light": "GitHub Light",
-    "dark": "GitHub Dark",
+    "dark": "GitHub Dark"
   },
   "ui_font_family": ".SystemUIFont",
   "ui_font_size": 14.0,
   "buffer_font_family": "SF Mono",
   "buffer_font_size": 12.0,
   "vim_mode": true,
-  "cli_default_open_behavior": "new_window",
+  "cli_default_open_behavior": "new_window"
 }
